@@ -32,10 +32,10 @@ import javafx.scene.control.DatePicker;
 public class DateTimeControls {
 
   /** The from date selector. */
-  private DatePicker dateSelector;
+  private transient final DatePicker dateSelector;
   
   /** The from time control. */
-  private TimeControl timeControl;
+  private transient final TimeControl timeControl;
   
   /**
    * Instantiates a new date time controls.
@@ -43,7 +43,7 @@ public class DateTimeControls {
    * @param dateSelector the date selector
    * @param timeControl the time control
    */
-  public DateTimeControls(DatePicker dateSelector, TimeControl timeControl) {
+  public DateTimeControls(final DatePicker dateSelector, final TimeControl timeControl) {
     this.dateSelector = dateSelector;
     this.timeControl = timeControl;
   }
@@ -54,8 +54,8 @@ public class DateTimeControls {
    * @return the local date time
    */
   public LocalDateTime getLocalDateTime() {
-    LocalDate localDate = dateSelector.getValue();
-    LocalTime localTime = timeControl.getLocalTime();
+    final LocalDate localDate = dateSelector.getValue();
+    final LocalTime localTime = timeControl.getLocalTime();
     
     return LocalDateTime.of(localDate, localTime);
   }

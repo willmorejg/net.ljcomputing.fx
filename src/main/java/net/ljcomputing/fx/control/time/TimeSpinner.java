@@ -49,6 +49,7 @@ public class TimeSpinner extends Spinner<LocalTime> implements Comparable<Spinne
    */
   enum Mode {
 
+    /** The hours. */
     HOURS {
 
       /**
@@ -64,10 +65,12 @@ public class TimeSpinner extends Spinner<LocalTime> implements Comparable<Spinne
        */
       @Override
       void select(TimeSpinner spinner) {
-        int index = spinner.getEditor().getText().indexOf(':');
+        final int index = spinner.getEditor().getText().indexOf(':');
         spinner.getEditor().selectRange(0, index);
       }
     },
+    
+    /** The minutes. */
     MINUTES {
 
       /**
@@ -83,11 +86,13 @@ public class TimeSpinner extends Spinner<LocalTime> implements Comparable<Spinne
        */
       @Override
       void select(TimeSpinner spinner) {
-        int hrIndex = spinner.getEditor().getText().indexOf(':');
-        int minIndex = spinner.getEditor().getText().indexOf(':', hrIndex + 1);
+        final int hrIndex = spinner.getEditor().getText().indexOf(':');
+        final int minIndex = spinner.getEditor().getText().indexOf(':', hrIndex + 1);
         spinner.getEditor().selectRange(hrIndex + 1, minIndex);
       }
     },
+    
+    /** The seconds. */
     SECONDS {
 
       /**
@@ -103,7 +108,7 @@ public class TimeSpinner extends Spinner<LocalTime> implements Comparable<Spinne
        */
       @Override
       void select(TimeSpinner spinner) {
-        int index = spinner.getEditor().getText().lastIndexOf(':');
+        final int index = spinner.getEditor().getText().lastIndexOf(':');
         spinner.getEditor().selectRange(index + 1,
             spinner.getEditor().getText().length());
       }
@@ -148,7 +153,7 @@ public class TimeSpinner extends Spinner<LocalTime> implements Comparable<Spinne
    *
    * @return the object property
    */
-      public ObjectProperty<Mode> modeProperty() {
+  public ObjectProperty<Mode> modeProperty() {
     return mode;
   }
 
@@ -180,22 +185,24 @@ public class TimeSpinner extends Spinner<LocalTime> implements Comparable<Spinne
 
     // Create a StringConverter for converting between the text in the
     // editor and the actual value:
-
-    
-
-    StringConverter<LocalTime> localTimeConverter = new StringConverter<LocalTime>() {
+    final StringConverter<LocalTime> localTimeConverter = new StringConverter<LocalTime>() {
 
       @Override
-      public String toString(LocalTime time) {
-        if(null != time) {
-          return formatter.format(time);
-        }
+      public String toString(final LocalTime time) {
+        return time == null ? null : formatter.format(time);
         
-        return null;
+//        if(time != null) {
+//          return formatter.format(time);
+//        }
+//        
+//        return null;
       }
 
+      /**
+       * @see javafx.util.StringConverter#fromString(java.lang.String)
+       */
       @Override
-      public LocalTime fromString(String string) {
+      public LocalTime fromString(final String string) {
         String[] tokens = string.split(":");
         int hours = getIntField(tokens, 0);
         int minutes = getIntField(tokens, 1);
@@ -217,8 +224,7 @@ public class TimeSpinner extends Spinner<LocalTime> implements Comparable<Spinne
     // The textFormatter both manages the text <-> LocalTime conversion,
     // and vetoes any edits that are not valid. We just make sure we have
     // two colons and only digits in between:
-
-    TextFormatter<LocalTime> textFormatter = new TextFormatter<LocalTime>(
+    final TextFormatter<LocalTime> textFormatter = new TextFormatter<LocalTime>(
         localTimeConverter, LocalTime.now(), c -> {
           String newText = c.getControlNewText();
 
@@ -231,8 +237,7 @@ public class TimeSpinner extends Spinner<LocalTime> implements Comparable<Spinne
 
     // The spinner value factory defines increment and decrement by
     // delegating to the current editing mode:
-
-    SpinnerValueFactory<LocalTime> valueFactory = new SpinnerValueFactory<LocalTime>() {
+    final SpinnerValueFactory<LocalTime> valueFactory = new SpinnerValueFactory<LocalTime>() {
 
       {
 
@@ -263,9 +268,9 @@ public class TimeSpinner extends Spinner<LocalTime> implements Comparable<Spinne
     // didn't work well though; getting that to work properly might be
     // a better approach in the long run.
     this.getEditor().addEventHandler(InputEvent.ANY, e -> {
-      int caretPos = this.getEditor().getCaretPosition();
-      int hrIndex = this.getEditor().getText().indexOf(':');
-      int minIndex = this.getEditor().getText().indexOf(':', hrIndex + 1);
+      final int caretPos = this.getEditor().getCaretPosition();
+      final int hrIndex = this.getEditor().getText().indexOf(':');
+      final int minIndex = this.getEditor().getText().indexOf(':', hrIndex + 1);
       if (caretPos <= hrIndex) {
         mode.set(Mode.HOURS);
       } else if (caretPos <= minIndex) {
@@ -277,7 +282,6 @@ public class TimeSpinner extends Spinner<LocalTime> implements Comparable<Spinne
 
     // When the mode changes, select the new portion:
     mode.addListener((obs, oldMode, newMode) -> newMode.select(this));
-
   }
 
   /**
@@ -328,6 +332,10 @@ public class TimeSpinner extends Spinner<LocalTime> implements Comparable<Spinne
   }
 
   /**
+   * Compare to.
+   *
+   * @param other the other
+   * @return the int
    * @see java.lang.Comparable#compareTo(java.lang.Object)
    */
   @Override

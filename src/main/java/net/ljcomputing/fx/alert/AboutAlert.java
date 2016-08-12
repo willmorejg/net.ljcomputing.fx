@@ -27,14 +27,14 @@ import javafx.scene.control.Alert.AlertType;
  */
 public class AboutAlert {
   /** The about message. */
-  private final String aboutMessage;
+  private transient final String aboutMessage;
   
   /**
    * Instantiates a new about alert.
    *
    * @param aboutMessage the about message
    */
-  public AboutAlert(String aboutMessage) {
+  public AboutAlert(final String aboutMessage) {
     this.aboutMessage = aboutMessage;
   }
 

@@ -28,17 +28,17 @@ import javafx.scene.control.Alert.AlertType;
 public class FileSaveSuccessfulAlert {
 
   /** The file save successful message. */
-  private String fileSaveSuccessfulMessage = "File saved successfully";
+  private final static String SUCCESSUL_MESSAGE = "File saved successfully";
 
   /**
    * Show.
    *
    * @param fileName the file name
    */
-  public void show(String fileName) {
-    Alert alert = new Alert(AlertType.INFORMATION);
+  public void show(final String fileName) {
+    final Alert alert = new Alert(AlertType.INFORMATION);
     alert.setTitle("Saved");
-    alert.setContentText(fileSaveSuccessfulMessage + " : " + fileName);
+    alert.setContentText(SUCCESSUL_MESSAGE + " : " + fileName);
     alert.setResizable(true);
     alert.showAndWait();
   }

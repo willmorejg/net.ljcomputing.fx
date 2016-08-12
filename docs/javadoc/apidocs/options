@@ -8,7 +8,7 @@
 'UTF-8'
 -private
 -sourcepath
-'/home/jim/workspace/net.ljcomputing.fx/src/main/java'
+'/home/jim/git/net.ljcomputing.fx.git/net.ljcomputing.fx/src/main/java'
 -inferrel -inferdep -quiet -hide java.*
       -collpackages java.util.* -qualify
       -postfixpackage
@@ -19,17 +19,17 @@
 -charset
 'UTF-8'
 -d
-'/home/jim/workspace/net.ljcomputing.fx/docs/javadoc/apidocs'
+'/home/jim/git/net.ljcomputing.fx.git/net.ljcomputing.fx/docs/javadoc/apidocs'
 -docencoding
 'UTF-8'
 -doctitle
-'LJ Computing - Service 1.0.0-SNAPSHOT API'
+'LJ Computing - Service 1.0.1-SNAPSHOT API'
 -link
 'http://commons.apache.org/proper/commons-lang/apidocs'
 -link
 'http://www.slf4j.org/apidocs'
 -linkoffline
-'http://docs.oracle.com/javase/8/docs/api' '/home/jim/workspace/net.ljcomputing.fx/target/javadoc-bundle-options'
+'http://docs.oracle.com/javase/8/docs/api' '/home/jim/git/net.ljcomputing.fx.git/net.ljcomputing.fx/target/javadoc-bundle-options'
 -linksource
 -tag
 "todo:a:To Do:"
@@ -38,4 +38,4 @@
 -use
 -version
 -windowtitle
-'LJ Computing - Service 1.0.0-SNAPSHOT API'
+'LJ Computing - Service 1.0.1-SNAPSHOT API'

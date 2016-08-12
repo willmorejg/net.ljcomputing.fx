@@ -33,7 +33,7 @@ import javafx.scene.layout.StackPane;
 public class TimeControl extends StackPane {
 
   /** The spinner. */
-  private TimeSpinner spinner = new TimeSpinner();
+  private final TimeSpinner spinner;
 
   /**
    * Instantiates a new time control.
@@ -42,7 +42,12 @@ public class TimeControl extends StackPane {
     this(LocalTime.now());
   }
   
-  public TimeControl(Date date) {
+  /**
+   * Instantiates a new time control.
+   *
+   * @param date the date
+   */
+  public TimeControl(final Date date) {
     this();
     setLocalTime(date);
   }
@@ -52,8 +57,9 @@ public class TimeControl extends StackPane {
    *
    * @param time the time
    */
-  public TimeControl(LocalTime time) {
+  public TimeControl(final LocalTime time) {
     super();
+    spinner = new TimeSpinner();
     setLocalTime(time);
     getChildren().add(spinner);
     setWidth(350);
@@ -65,10 +71,10 @@ public class TimeControl extends StackPane {
    *
    * @param date the new local time
    */
-  public void setLocalTime(Date date) {
+  public void setLocalTime(final Date date) {
     LocalTime ldt = null;
     
-    if(null != date) {
+    if(date != null) {
       ldt = LocalDateTime.ofInstant(date.toInstant(), ZoneId.systemDefault()).toLocalTime();  
     }
 
@@ -80,7 +86,7 @@ public class TimeControl extends StackPane {
    *
    * @param time the new local time
    */
-  public void setLocalTime(LocalTime time) {
+  public void setLocalTime(final LocalTime time) {
     spinner.setLocalTime(time);
   }
   
@@ -99,12 +105,8 @@ public class TimeControl extends StackPane {
    * @return the local time as date
    */
   public Date getLocalTimeAsDate() {
-    if (null != getLocalTime()) {
-      return Date.from(getLocalTime().atDate(LocalDate.now())
-          .atZone(ZoneId.systemDefault()).toInstant());
-    }
-    
-    return null;
+    return getLocalTime() == null
+        ? null : Date.from(getLocalTime().atDate(LocalDate.now()).atZone(ZoneId.systemDefault()).toInstant());
   }
   
   /**
